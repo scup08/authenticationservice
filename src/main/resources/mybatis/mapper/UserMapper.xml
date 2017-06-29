@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xhld.insInsuranceservice.mapper.UserMapper">
+<mapper namespace="com.xhld.authenticationservice.mapper.UserMapper">
 	<!-- <sql id="Base_Column_List" > id, userName, passWord, user_sex, nick_name 
 		</sql> <select id="getAll" resultType="com.xhld.insInsuranceservice.model.SysUser" 
 		> SELECT <include refid="Base_Column_List" /> FROM users </select> <select 
@@ -21,13 +21,13 @@
 		LEFT JOIN sys_role r on sru.sys_role_id=r.id LEFT JOIN sys_permission_role 
 		spr on spr.sys_role_id=r.id LEFT JOIN sys_permission p on p.id =spr.sys_permission_id 
 		where u.id=#{userId} </select> -->
-	<select id="findByUserName" parameterType="String" resultType="com.xhld.insInsuranceservice.model.entity.SysUser">
+	<select id="findByUserName" parameterType="String" resultType="com.xhld.authenticationservice.model.entity.SysUser">
 		select
 		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name,u.user_type
 		from sys_user u
 		where login_name= #{username}
 	</select>
-	<select id="getAuthInfo" parameterType="HashMap" resultType="com.xhld.insInsuranceservice.model.entity.SysUser">
+	<select id="getAuthInfo" parameterType="HashMap" resultType="com.xhld.authenticationservice.model.entity.SysUser">
 		select
 		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name,u.user_type 
 		from sys_user_auths sua

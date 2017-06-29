@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.xhld.authenticationservice.local.user.UserRepository;
+import com.xhld.authenticationservice.mapper.UserMapper;
 import com.xhld.authenticationservice.model.JwtUser;
 import com.xhld.authenticationservice.model.UserDto;
 import com.xhld.authenticationservice.service.IAuthService;
@@ -25,9 +25,12 @@ import com.xhld.authenticationservice.util.JwtTokenUtil;
 public class AuthServiceImpl implements IAuthService {
 
     private AuthenticationManager authenticationManager;
+    
     private UserDetailsService userDetailsService;
+    
     private JwtTokenUtil jwtTokenUtil;
-    private UserRepository userRepository;
+    
+    private UserMapper userMapper;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -37,17 +40,17 @@ public class AuthServiceImpl implements IAuthService {
             AuthenticationManager authenticationManager,
             UserDetailsService userDetailsService,
             JwtTokenUtil jwtTokenUtil,
-            UserRepository userRepository) {
+            UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
     public UserDto register(UserDto userToAdd) {
-        final String username = userToAdd.getUserName();
-        if(userRepository.findByUsername(username)!=null) {
+        final String username = userToAdd.getUsername();
+        if(userMapper.findByUserName(username)!=null) {
             return null;
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

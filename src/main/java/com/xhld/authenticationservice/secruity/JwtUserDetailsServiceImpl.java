@@ -35,7 +35,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 //    	userDto.setLastPasswordResetDate(sysUser.get); 
 //    	userDto.setPassword(password);
 //    	userDto.setRoles(roles);
-    	userDto.setUserName(sysUser.getUserName());
+    	userDto.setUsername(sysUser.getUserName());
     	
     	return userDto;
     }

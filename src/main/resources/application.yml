@@ -6,8 +6,8 @@ spring:
      name: authenticationservice
      
   datasource:
-    #url: jdbc:mysql://192.168.121.18:3306/testdb?characterEncoding=UTF-8
-    url: jdbc:mysql://192.168.26.128:3306/testdb?characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.121.18:3306/testdb?characterEncoding=UTF-8
+    #url: jdbc:mysql://192.168.26.128:3306/testdb?characterEncoding=UTF-8
     username: root
     password: root1234
     driver-class-name: com.mysql.jdbc.Driver
@@ -22,7 +22,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
   redis:
     database: 1
-    host: 192.168.26.128
+    host: 192.168.121.18
     #spring.redis.password=123456
     port: 6379
     pool:
@@ -57,5 +57,5 @@ jwt:
     authentication:
       path: auth
       refresh: refresh
-      register: "auth/register"
+      register: register
 

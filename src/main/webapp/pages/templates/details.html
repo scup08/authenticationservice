@@ -1,0 +1,109 @@
+<div class="details">
+	<button ng-click = "back()"></button>
+	<div class="title">
+		<h2>一般情况</h2>
+	</div>	
+	<table border="" cellspacing="" cellpadding="">		
+		<tr>
+			<th>发生日期:</th>
+			<td>{{res.startTime}}</td>
+			<th>发生时间:</th>
+			<td>{{res.timeHourNm}}</td>
+			<th>患者姓名:</th>
+			<td>{{res.patName}}</td>
+		</tr>
+		<tr>
+			<th>患者性别:</th>
+			<td>{{res.patSexNm}}</td>
+			<th>患者年龄:</th>
+			<td>{{res.patAgeNm}}</td>
+			<th>患者医疗类别:</th>
+			<td>{{res.eventTypeName}}</td>
+		</tr>
+		<tr>
+			<th>住院号/就诊卡号:</th>
+			<td>{{res.medicalNo}}</td>
+			<th>事件发生所在地:</th>
+			<td>{{res.eventAddr}}</td>
+			<th>现场诊疗科室名称:</th>
+			<td>{{res.deptName}}</td>
+		</tr>
+	</table>
+	<div class="title">
+		<h2>事件类别</h2>
+	</div>		
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>提供何种服务时发生:</th>
+			<td>{{res.serviceNm}}</td>
+			<th>所报告不良事件名称:</th>
+			<td>{{res.eventNameNm}}</td>
+			<th>所报告不良事件主要情况:</th>
+			<td>{{res.eventQkNm}}</td>
+		</tr>
+		<tr>
+			<th>与当事人可能相关因素:</th>
+			<td>{{res.factorNm}}</td>
+		</tr>
+	</table>
+	<div class="title">
+		<h2>患者情况</h2>
+	</div>		
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>事件发生前病人所处的状态:</th>
+			<td>{{res.patStatusNm}}</td>
+			<th>给病人造成的功能损害:</th>
+			<td>{{res.patFunNm}}</td>
+			<th>三级分类:</th>
+			<td>{{res.eventLvNm}}</td>								
+		</tr>
+	</table>
+	<div class="title">
+		<h2>事件级别与造成损害的轻重程度</h2>
+	</div>		
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>给病人造成损害的轻重程度:</th>
+			<td>{{res.patCdNm}}</td>
+			<th>事件级别:</th>
+			<td>{{res.eventLvNm}}</td>
+			<th>三级分类:</th>
+			<td>{{res.eventLvNm}}</td>								
+		</tr>
+	</table>
+	<div class="title">
+		<h2>报告者信息</h2>
+	</div>		
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>对事件经过的简要描述:</th>
+			<td>{{res.content}}</td>
+			<th>工号:</th>
+			<td>{{res.bgJobNumber}}</td>
+			<th>报告者姓名:</th>
+			<td>{{res.bgNm}}</td>								
+		</tr>
+		<tr>
+			<th>执业年限:</th>
+			<td>{{res.bgWorkYear}}</td>
+			<th>职称:</th>
+			<td>{{res.bgTitleNm}}</td>
+			<th>报告者电话:</th>
+			<td>{{res.bgTel}}</td>								
+		</tr>
+	</table>
+	<div class="title">
+		<h2>整改措施</h2>
+	</div>		
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>整改措施:</th>
+			<td>{{res.rectProgram}}</td>
+			<th>社工部意见:</th>
+			<td>{{res.sgbYj}}</td>
+			<th>上传文件:</th>
+			<td>{{res.levelC}}</td>								
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,52 @@
+<div class="clinical">
+	<div class="map">
+		<div class="operation">
+			<button ng-click="addpre()">新增</button>
+		</div>
+		<form class="screen_box">
+			<div class="requirement">
+				<label for="date_start" class="control-label">开始日期：</label>
+				<input class="datainp wicon" id="date_start" name="startTime" type="text" placeholder="YYYY-MM-DD" ng-click="dateTag($event)" readonly>
+			</div>
+			<div class="requirement">
+				<label for="date_end" class="control-label">结束日期：</label>
+				<input class="datainp wicon" name="endTime" id="date_end" type="text" placeholder="YYYY-MM-DD" ng-click="dateTag($event)" readonly>
+			</div>
+			<div class="requirement">
+				<label for="date_end" class="control-label">案件名称：</label>
+				<input type="text" id="endTime" value="formData.endTime" ng-model="formData.endTime" />
+			</div>
+			<button>搜索</button>
+		</form>
+		<table>
+			<tr>
+				<th>选择</th>
+				<th>序号</th>
+				<th>案件名称</th>
+				<th>案件类型</th>
+				<th>创建时间</th>
+				<th>审核状态</th>
+				<th>是否作废</th>
+				<th>操作</th>
+			</tr>
+			<tr ng-repeat="i in res">
+				<td>
+					<label id='uuid'>
+						<input class="ck_box" type="checkbox" id='uuid' name="{{tag.name}}" ng-checked="isSelected(i.uuid)" ng-click="updateSelection($event,i.uuid,$index)">
+					</label>
+				</td>
+				<td>{{i.deptCode}}</td>
+				<td>{{i.eventNameNm}}</td>
+				<td>{{i.eventTypeName}}</td>
+				<td>{{i.startTime}}</td>
+				<td>{{i.deptStatusName}}</td>
+				<td>{{i.zfFlagName}}</td>
+				<td>
+					<a href="javascript:;">查看</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div ng-include="'templates/add.html'"></div>
+	<div ng-include="'templates/page.html'"></div>
+</div>

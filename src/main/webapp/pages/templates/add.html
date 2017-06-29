@@ -1,0 +1,198 @@
+<div class="backdrop" ng-hide="backdrop">
+		<div class="close" ng-click="close()"></div>
+		<div class="select" ng-hide="reg">
+			<h3 ng-class = "{'header_bg1':bg_1,'header_bg2':bg_2,'header_bg3':bg_3}">不良事件登记</h3>
+			<ul>
+				<li ng-click="class_reg(5)">护理类</li>
+				<li ng-click="class_reg(2)">药品类</li>
+				<li ng-click="class_reg(1)">诊疗类</li>
+				<li ng-click="class_reg(6)">非诊疗类</li>
+				<li ng-click="class_reg(3)">医疗器械类</li>
+				<li ng-click="class_reg(7)">医患沟通类</li>
+				<li ng-click="class_reg(4)">输血类</li>
+			</ul>
+		</div>
+		<form enctype="multipart/form-data" class="reg" id="reg" ng-show="reg" ng-submit = "save()">
+			<input type="hidden" name="eventType" id="" value="{{eventType}}"/>
+			<h3 ng-class = "{'header_bg1':bg_1,'header_bg2':bg_2,'header_bg3':bg_3}">{{reg_name}}</h3>
+			<div class="data_map">
+				<div class="data_title">
+					<span></span>一般情况
+				</div>
+				<ul>
+					<li>
+						<div class="data_row">
+							<label>发生日期</label>
+							<input class="datainp wicon" name="startTime" type="text" placeholder="YYYY-MM-DD" ng-click="dateTag($event)"  readonly>
+							<!--<input type="text" name="startTime" id="" value="" ng-model = "reg_obj.startTime" />-->
+						</div>
+						<div class="data_row">
+							<label>发生时间</label>
+							<input type="text" name="timeHourNm" id="" value="" ng-model = "reg_obj.timeHourNm" />
+						</div>
+						<div class="data_row">
+							<label>患者姓名</label>
+							<input type="text" name="patName" id="" value="" />
+						</div>
+						<div class="data_row">
+							<label>患者性别</label>
+							<select name="patSex">
+								<option value="">--请选择--</option>
+								<option value="{{i.code}}" ng-repeat = "i in pat_sex">{{i.name}}</option>
+							</select>
+						</div>
+
+					</li>
+					<li>
+						<div class="data_row">
+							<label>患者年龄</label>
+							<select name="patAge">
+								<option value="">--请选择--</option>
+								<option value="{{i.code}}" ng-repeat = "i in pat_age">{{i.name}}</option>
+							</select>
+						</div>
+						<div class="data_row">
+							<label>患者医疗类别</label>
+							<select name="brylType">
+								<option value="">--请选择--</option>
+								<option value="{{i.code}}" ng-repeat = "i in brylTypeNm">{{i.name}}</option>
+							</select>
+						</div>
+						<div class="data_row">
+							<label>住院号/就诊卡号</label>
+							<input type="text" name="medicalNo" id="" value="" ng-model = "reg_obj.medicalNo" />
+						</div>
+						<div class="data_row">
+							<label>事件发生所在地</label>
+							<input type="text" name="eventAddr" id="" value="" ng-model = "reg_obj.eventAddr" />
+						</div>
+
+					</li>
+					<li>
+						<div class="data_row">
+							<label>现场诊疗科室名称</label>
+							<select name="deptCode">
+								<option value="">--请选择--</option>
+								<option value="{{i.code}}" ng-repeat = "i in deptName">{{i.name}}</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+				<div class="data_title">
+					<span></span>事件类别
+				</div>
+				<ul>
+					<li>
+						<div class="data_row">
+							<label>所报告不良事件名称</label>
+							<select name="eventName">
+								<option value="">-- 请选择 --</option>
+								<option value="{{i.code}}" ng-repeat = "i in eventName">{{i.name}}</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+				<div class="data_title">
+					<span></span>患者情况
+				</div>
+				<ul>
+					<li>
+						<div class="data_row">
+							<label>事件发生前病人所处的状态</label>
+							<select name="patStatus">
+								<option value="">-- 请选择 --</option>
+								<option value="{{i.code}}" ng-repeat = "i in patStatus">{{i.name}}</option>
+							</select>
+						</div>
+						<div class="data_row">
+							<label>给病人造成的功能损害</label>
+							<select name="patFun">
+								<option value="">-- 请选择 --</option>
+								<option value="{{i.code}}" ng-repeat = "i in patFun">{{i.name}}</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+				<div class="data_title">
+					<span></span>事件级别与造成损害的轻重程度
+				</div>
+				<ul>
+					<li>
+						<div class="data_row">
+							<label>给病人造成损害的轻重程度</label>
+							<select name="patCd">
+								<option value="">-- 请选择 --</option>
+								<option value="{{i.code}}" ng-repeat = "i in patCd">{{i.name}}</option>
+							</select>
+						</div>
+						<div class="data_row">
+							<label>事件级别</label>
+							<select name="eventLv">
+								<option value="">-- 请选择 --</option>
+								<option value="{{i.code}}" ng-repeat = "i in eventLv">{{i.name}}</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+				<div class="data_title">
+					<span></span>报告者信息
+				</div>
+				<ul>
+					<li>
+						<div class="data_row">
+							<label>工号</label>
+							<input type="text" name="bgJobNumber" id="" value="" ng-model = "reg_obj.bgJobNumber" />
+						</div>
+						<div class="data_row">
+							<label>报告者姓名</label>
+							<input type="text" name="bgNm" id="" value="" ng-model = "reg_obj.bgNm" />
+						</div>
+						<div class="data_row">
+							<label>执业年限</label>
+							<input type="text" name="bgWorkYear" id="" value="" ng-model = "reg_obj.bgWorkYear" />
+						</div>
+						<div class="data_row">
+							<label>职称</label>
+							<input type="text" name="bgZc" id="" value="" ng-model = "reg_obj.bgZc" />
+						</div>
+					</li>
+					<li>
+						<div class="data_row">
+							<label>报告者电话</label>
+							<input type="text" name="bgTel" id="" value="" ng-model = "bgTel" ng-keyup="clearNoNum($event)" maxlength="15"/>
+						</div>
+					</li>
+					<li class="tex">
+						<div class="data_row">
+							<label>对事件经过的简要描述</label>
+							<textarea name="content" rows="" cols="" ng-model = "reg_obj.content"></textarea>
+						</div>
+					</li>
+				</ul>
+				<div class="data_title">
+					<span></span>整改措施
+				</div>
+				<ul>
+					<li class="tex">
+						<div class="data_row">
+							<label>整改措施</label>
+							<textarea name="rectProgram" rows="" cols="" ng-model = "reg_obj.rectProgram"></textarea>
+						</div>
+					</li>
+					<li class="tex">
+						<div class="data_row">
+							<label>社工部意见</label>
+							<textarea name="sgbYj" rows="" cols="" ng-model = "reg_obj.sgbYj"></textarea>
+						</div>
+					</li>
+					<li>
+						<div class="data_row">
+							<label>上传文件</label>
+							<input type="file" name="" id="" value="" />
+						</div>
+					</li>
+				</ul>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>

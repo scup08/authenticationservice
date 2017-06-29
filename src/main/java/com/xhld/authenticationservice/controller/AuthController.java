@@ -1,10 +1,11 @@
 package com.xhld.authenticationservice.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.xhld.authenticationservice.model.UserDto;
 import com.xhld.authenticationservice.service.IAuthService;
 
 @RestController
+@RequestMapping(value = "/auth")
 public class AuthController {
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -22,17 +24,21 @@ public class AuthController {
     @Autowired
     private IAuthService authService;
 
-    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+//    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public UserDto createAuthenticationToken(
-            @RequestBody UserDto userDto) throws AuthenticationException{
+            @RequestBody UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) throws AuthenticationException{
+    	
+//    	PublicUtil.setResponse(res);
     	UserDto user = new UserDto();
     	
-        final String token = authService.login(userDto.getUserName(), userDto.getPassword());
+        final String token = authService.login(userDto.getUsername(), userDto.getPassword());
 
         // Return the token
         return user;
     }
 
+//    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
     public UserDto refreshAndGetAuthenticationToken(
             HttpServletRequest request) throws AuthenticationException{
@@ -48,9 +54,30 @@ public class AuthController {
     }
 
     @RequestMapping(value = "${jwt.route.authentication.register}", method = RequestMethod.POST)
-    public UserDto register(@RequestBody UserDto addedUser) throws AuthenticationException{
+//    public UserDto register(@RequestBody UserDto addedUser) throws AuthenticationException{   //接受不到参数，会报异常
+//    public UserDto register(@QueryParam("") UserDto addedUser) throws AuthenticationException{
+//    public UserDto register(String username ,String password) throws AuthenticationException{
+    public UserDto register( UserDto addedUser) throws AuthenticationException{
+//    	UserDto addedUser = new UserDto();
         return authService.register(addedUser);
     }
+    
+    /*
+     * 可以删除
+     */
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public UserDto test(
+//            HttpServletRequest request) throws AuthenticationException{
+//    	UserDto userDto = new UserDto();
+//    	
+//        String token = request.getHeader(tokenHeader);
+//        String refreshedToken = authService.refresh(token);
+//        if(refreshedToken == null) {
+//            return null;
+//        } else {
+//            return userDto;
+//        }
+//    }
     
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
 //    public ResponseEntity<?> createAuthenticationToken(
