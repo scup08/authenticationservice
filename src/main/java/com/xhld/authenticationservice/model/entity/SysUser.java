@@ -25,7 +25,7 @@ public class SysUser implements Serializable{
 	
 	private String userName;     //用户昵称
 	
-	private int userType;       //用户类型     1-管理员2-领导层3-财务审计
+//	private int userType;       //用户类型     0-普通用户 1-管理员2-领导层3-财务审计
 	
 	private String telephoneNo; //手机号
 	
@@ -33,7 +33,7 @@ public class SysUser implements Serializable{
 	
 	private String email;       //邮箱
 	
-	private String status;      //用户状态  0-未激活   1-正常	2-停用
+	private int status;      //用户状态  0-未激活   1-正常	2-停用
 	
 	public int getId() {
 		return id;
@@ -53,12 +53,6 @@ public class SysUser implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getUserType() {
-		return userType;
-	}
-	public void setUserType(int userType) {
-		this.userType = userType;
-	}
 	public String getTelephoneNo() {
 		return telephoneNo;
 	}
@@ -77,10 +71,10 @@ public class SysUser implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

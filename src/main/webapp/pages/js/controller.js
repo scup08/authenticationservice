@@ -2,8 +2,8 @@ angular.module("myController", [])
 	//登陆
 	.controller('loginController', ['$http', '$scope', 'commonHttpService', 'locals', 'navService', '$location', function($http, $scope, commonHttpService, locals, navService, $location) {
 		sessionStorage.clear();
-		var myurl = "user/auth";
-		var myurl = "auth/register";
+		var myurl = "auth";
+		var myurlregister = "auth/register";
 		
 		var loginInfo = {
 			username: '',
@@ -14,7 +14,7 @@ angular.module("myController", [])
 			loginInfo.password = $scope.passWord;
 			commonHttpService.request(myurl, loginInfo)
 				.then(function(res) {
-					alert(res.data.username);
+					//alert(res.data.username);
 					console.log(res);
 //					if(res.data.rtnCode == 0) {
 //						$location.path('/main/department');
@@ -32,7 +32,7 @@ angular.module("myController", [])
 		$scope.register = function() {
 			loginInfo.username = $scope.userCode;
 			loginInfo.password = $scope.passWord;
-			commonHttpService.request(myurl, loginInfo)
+			commonHttpService.request(myurlregister, loginInfo)
 				.then(function(res) {
 					alert(res.data.username);
 					console.log(res);

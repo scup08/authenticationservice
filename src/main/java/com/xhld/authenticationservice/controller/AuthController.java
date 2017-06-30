@@ -55,9 +55,9 @@ public class AuthController {
 
     @RequestMapping(value = "${jwt.route.authentication.register}", method = RequestMethod.POST)
 //    public UserDto register(@RequestBody UserDto addedUser) throws AuthenticationException{   //接受不到参数，会报异常
-//    public UserDto register(@QueryParam("") UserDto addedUser) throws AuthenticationException{
-//    public UserDto register(String username ,String password) throws AuthenticationException{
-    public UserDto register( UserDto addedUser) throws AuthenticationException{
+    public UserDto register(@QueryParam("") UserDto addedUser) throws AuthenticationException{  //可以接受到
+//    public UserDto register(String username ,String password) throws AuthenticationException{  //可以接受到
+//    public UserDto register( UserDto addedUser) throws AuthenticationException{   //可以接受到
 //    	UserDto addedUser = new UserDto();
         return authService.register(addedUser);
     }

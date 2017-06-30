@@ -31,7 +31,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     UserDto changeToUserDto(SysUser sysUser){
     	UserDto userDto = new UserDto();
     	userDto.setEmail(sysUser.getEmail());
-    	userDto.setId(String.valueOf(sysUser.getId()));
+    	userDto.setId(sysUser.getId());
 //    	userDto.setLastPasswordResetDate(sysUser.get); 
 //    	userDto.setPassword(password);
 //    	userDto.setRoles(roles);

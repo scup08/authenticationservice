@@ -5,17 +5,17 @@ import java.util.List;
 
 public class UserDto {
 	
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String email;
     private Date lastPasswordResetDate;
     private List<String> roles;
     
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getUsername() {

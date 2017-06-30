@@ -23,13 +23,13 @@
 		where u.id=#{userId} </select> -->
 	<select id="findByUserName" parameterType="String" resultType="com.xhld.authenticationservice.model.entity.SysUser">
 		select
-		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name,u.user_type
+		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name
 		from sys_user u
 		where login_name= #{username}
 	</select>
 	<select id="getAuthInfo" parameterType="HashMap" resultType="com.xhld.authenticationservice.model.entity.SysUser">
 		select
-		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name,u.user_type 
+		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name
 		from sys_user_auths sua
 		left join sys_user u on u.id = sua.user_id
 		where 1=1 

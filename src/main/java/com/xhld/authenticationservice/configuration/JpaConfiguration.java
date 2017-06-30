@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 @EnableJpaRepositories(basePackages = "com.xhld.authenticationservice.dao")
-@EntityScan(basePackages = "com.xhld.authenticationservice.model")
+@EntityScan(basePackages = "com.xhld.authenticationservice.model.*")
 public class JpaConfiguration {
 
     @Bean

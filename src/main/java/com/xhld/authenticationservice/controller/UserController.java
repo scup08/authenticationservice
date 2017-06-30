@@ -51,7 +51,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     UserDto updateUser(@PathVariable String id, @RequestBody UserDto updatedUser) {
-        updatedUser.setId(id);
+        updatedUser.setId(new Integer(id));
 //        return loginService.save(updatedUser);
         return null;
     }
