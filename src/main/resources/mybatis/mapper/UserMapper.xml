@@ -21,10 +21,11 @@
 		LEFT JOIN sys_role r on sru.sys_role_id=r.id LEFT JOIN sys_permission_role 
 		spr on spr.sys_role_id=r.id LEFT JOIN sys_permission p on p.id =spr.sys_permission_id 
 		where u.id=#{userId} </select> -->
-	<select id="findByUserName" parameterType="String" resultType="com.xhld.authenticationservice.model.entity.SysUser">
+	<select id="findByUserName" parameterType="String" resultType="com.xhld.authenticationservice.model.UserDto">
 		select
-		u.id,u.email,u.id_no,u.login_name,u.status,u.telephone_no,u.user_name
+		u.id,u.email,u.user_name username,sua.proof_value password
 		from sys_user u
+		left join sys_user_auths sua on u.id = sua.user_id
 		where login_name= #{username}
 	</select>
 	<select id="getAuthInfo" parameterType="HashMap" resultType="com.xhld.authenticationservice.model.entity.SysUser">

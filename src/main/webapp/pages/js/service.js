@@ -7,8 +7,9 @@
 angular.module('myService', [])
 	.factory("commonHttpService", function($http, httpConfig) {
 		return {
-			request: function(url, data, method) {
-				var token = localStorage.getItem('token');
+			request: function(url, data, method,token) {
+				//alert(token);
+				//var token = localStorage.getItem('token');
 //				var requestUrl = 'http://' + httpConfig.ip + ':' + httpConfig.port + '/' + httpConfig.serviceName + '/app/' + url + '?random=' + Math.random() + '&token=' + token;
 				var requestUrl = 'http://' + httpConfig.ip + ':' + httpConfig.port + '/'  + url + '?random=' + Math.random();
 				
@@ -16,7 +17,8 @@ angular.module('myService', [])
 						method: httpConfig.METHOD_CREATE,
 						url: requestUrl,
 						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+							'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+//							'Authorization': 'Bearer ' + token
 						},
 						data: data,
 						//params: params,

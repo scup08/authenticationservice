@@ -27,13 +27,13 @@ public class AuthController {
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public UserDto createAuthenticationToken(
-            @RequestBody UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) throws AuthenticationException{
+    		@QueryParam("") UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) throws AuthenticationException{
     	
 //    	PublicUtil.setResponse(res);
     	UserDto user = new UserDto();
     	
         final String token = authService.login(userDto.getUsername(), userDto.getPassword());
-
+        user.setToken(token);
         // Return the token
         return user;
     }

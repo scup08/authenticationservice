@@ -12,6 +12,7 @@ public final class JwtUserFactory {
     }
 
     public static JwtUser create(UserDto user) {
+    	
         return new JwtUser(
                 user.getId(),
                 user.getUsername(),
@@ -24,6 +25,9 @@ public final class JwtUserFactory {
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<String> authorities) {
     	List<GrantedAuthority> rsList = new ArrayList<GrantedAuthority>();
+    	if(authorities == null){
+    		return rsList;
+    	}
     	for(String auth:authorities){
     		rsList.add(new SimpleGrantedAuthority(auth));
     	}

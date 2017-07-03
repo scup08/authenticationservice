@@ -2,7 +2,7 @@ angular.module("myController", [])
 	//登陆
 	.controller('loginController', ['$http', '$scope', 'commonHttpService', 'locals', 'navService', '$location', function($http, $scope, commonHttpService, locals, navService, $location) {
 		sessionStorage.clear();
-		var myurl = "auth";
+		var myurl = "auth/";
 		var myurlregister = "auth/register";
 		
 		var loginInfo = {
@@ -14,12 +14,14 @@ angular.module("myController", [])
 			loginInfo.password = $scope.passWord;
 			commonHttpService.request(myurl, loginInfo)
 				.then(function(res) {
-					//alert(res.data.username);
+//					alert(res.data.token);
 					console.log(res);
 //					if(res.data.rtnCode == 0) {
-//						$location.path('/main/department');
-//						locals.set("userName", res.data.data.roleName);
-//						locals.set("position", res.data.data.position)
+						locals.set("token", res.data.token);
+						$location.path('/main/department');
+						
+						//alert(444);
+//						locals.set("position", res.data.data.position);
 //						navService.set(res.data.data.pageInfoList);
 //						var nav = res.data.data.pageInfoList;
 //						locals.setObject("nav", nav)
@@ -490,12 +492,15 @@ angular.module("myController", [])
 	//职能科室管理
 	.controller('DepartmentCtrl', ['$http', '$scope', '$location', 'jeDate', 'locals', 'commonHttpService', function($http, $scope, $location, jeDate, locals, commonHttpService) {
 		var b = locals.get('FromSelf');
+		var token = locals.get("token");
+		console.log(token)
 		//初始化日期控件
 		jeDate.datefun(b);
 		var myUrl = "bsAdverseCopy/queryAdverseEventInfo";
 		var obj = {};
 		$scope.get_data = function() {
-			commonHttpService.request(myUrl, obj)
+			//alert(token);
+			commonHttpService.request(myUrl, obj,'',token)
 				.then(function(res) {
 					$scope.res = res.data.data;
 					$scope.allpage = res.data.pageCount;
@@ -505,7 +510,7 @@ angular.module("myController", [])
 					}
 				})
 		}
-		$scope.get_data();
+		//$scope.get_data();
 		$scope.formData = {};
 		//搜索
 		$scope.search = function() {

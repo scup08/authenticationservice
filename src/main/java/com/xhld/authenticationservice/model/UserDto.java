@@ -11,6 +11,7 @@ public class UserDto {
     private String email;
     private Date lastPasswordResetDate;
     private List<String> roles;
+    private String token;
     
 	public int getId() {
 		return id;
@@ -47,6 +48,12 @@ public class UserDto {
 	}
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
     
 }

@@ -68,11 +68,16 @@ angular.module('mdis', ['ui.router', 'myController', 'myService', 'module'])
 		})
 	$urlRouterProvider.otherwise('/login');
 	//$http AJAX 拦截器 处理
-	$httpProvider.interceptors.push(['$rootScope', '$q', '$location', '$timeout',
-		function($rootScope, $q, $location, $timeout) {
+	$httpProvider.interceptors.push(['$rootScope', '$q', '$location', '$timeout','$window',
+		function($rootScope, $q, $location, $timeout,$window) {
 			return {
 				'request': function(config) {
 					config.headers['X-Requested-With'] = 'XMLHttpRequest';
+					if($window.sessionStorage.length>0){
+						var token = $window.sessionStorage.token;
+						console.log(token)
+						config.headers['Authorization'] = 'Bearer '+token ;
+					};
 					return config || $q.when(config);
 				},
 				'requestError': function(rejection) {

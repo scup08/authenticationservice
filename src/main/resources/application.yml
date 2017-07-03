@@ -55,7 +55,7 @@ jwt:
   tokenHead: "Bearer "
   route:
     authentication:
-      path: auth
+      path: auth/
       refresh: refresh
       register: register
 

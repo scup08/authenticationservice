@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.xhld.authenticationservice.dao.UserRedisDao;
 import com.xhld.authenticationservice.mapper.UserMapper;
+import com.xhld.authenticationservice.model.UserDto;
 import com.xhld.authenticationservice.model.entity.SysUser;
 import com.xhld.authenticationservice.service.ILoginService;
 
@@ -20,7 +21,7 @@ public class LoginServiceImpl implements ILoginService {
 	private UserRedisDao userRedisDao;
 	
 	@Override
-    public SysUser findByUsername(String name) {
+    public UserDto findByUsername(String name) {
 		return userMapper.findByUserName(name);
 	}
 
