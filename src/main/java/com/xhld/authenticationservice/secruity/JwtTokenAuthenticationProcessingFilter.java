@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -48,9 +49,9 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     
-    @Autowired
+//    @Autowired
     public JwtTokenAuthenticationProcessingFilter(AuthenticationFailureHandler failureHandler, 
-            RequestMatcher matcher) {
+    		RequestMatcher matcher) {
         super(matcher);
         this.failureHandler = failureHandler;
 //        this.tokenExtractor = tokenExtractor;
@@ -61,26 +62,29 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
             throws AuthenticationException, IOException, ServletException {
     	UsernamePasswordAuthenticationToken authentication = null;
         String authHeader = request.getHeader(this.tokenHeader);
+        if(authHeader == null){
+        	throw new AuthenticationServiceException("Authorization header cannot be blank!");
+        }
+        
         final String authToken = authHeader.substring(tokenHead.length()); // The part after "Bearer "
         String username = jwtTokenUtil.getUsernameFromToken(authToken);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         authentication = new UsernamePasswordAuthenticationToken(
                 userDetails, null, userDetails.getAuthorities());
         
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
-                request));    
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));    
         
         return getAuthenticationManager().authenticate(authentication);
     }
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-            Authentication authResult) throws IOException, ServletException {
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authResult);
-        SecurityContextHolder.setContext(context);
-        chain.doFilter(request, response);
-    }
+//    @Override
+//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+//            Authentication authResult) throws IOException, ServletException {
+//        SecurityContext context = SecurityContextHolder.createEmptyContext();
+//        context.setAuthentication(authResult);
+//        SecurityContextHolder.setContext(context);
+//        chain.doFilter(request, response);
+//    }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,

@@ -22,7 +22,7 @@ import com.xhld.authenticationservice.model.JwtUserFactory;
 import com.xhld.authenticationservice.model.UserDto;
 import com.xhld.authenticationservice.util.JwtTokenUtil;
 
-@Component
+//@Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
