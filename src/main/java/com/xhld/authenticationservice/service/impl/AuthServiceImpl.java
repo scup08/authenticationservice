@@ -30,8 +30,8 @@ import com.xhld.authenticationservice.util.JwtTokenUtil;
 @Service
 public class AuthServiceImpl implements IAuthService {
 
-	@Autowired
-    private AuthenticationManager authenticationManager;
+//	@Autowired
+//    private AuthenticationManager authenticationManager;
     
 	@Autowired
     private UserDetailsService userDetailsService;
@@ -107,14 +107,17 @@ public class AuthServiceImpl implements IAuthService {
 
     @Override
     public String login(String username, String password) {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
+//        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
         // Perform the security
-        final Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        final Authentication authentication = authenticationManager.authenticate(upToken);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Reload password post-security so we can generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final String token = jwtTokenUtil.generateToken(userDetails);
+    	UserDto userDetails = userMapper.findByUserName(username);
+        String token = null;
+        if(userDetails != null){
+        	token = jwtTokenUtil.generateToken(userDetails);
+        }
         return token;
     }
 

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.xhld.authenticationservice.model.JwtUser;
+import com.xhld.authenticationservice.model.UserDto;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -93,7 +94,7 @@ public class JwtTokenUtil implements Serializable {
      * @param userDetails
      * @return
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDto userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());

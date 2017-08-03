@@ -15,7 +15,7 @@ angular.module("myController", [])
 			commonHttpService.request(myurl, loginInfo)
 				.then(function(res) {
 //					alert(res.data.token);
-					console.log(res);
+					console.log(res.data.token);
 //					if(res.data.rtnCode == 0) {
 						locals.set("token", res.data.token);
 						$location.path('/main/department');

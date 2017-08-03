@@ -19,7 +19,6 @@ import org.springframework.util.Assert;
  * Aug 19, 2016
  */
 public class SkipPathRequestMatcher implements RequestMatcher {
-	private RequestMatcher requestMatcher = AnyRequestMatcher.INSTANCE;
 	
     private OrRequestMatcher matchers;
     private RequestMatcher processingMatcher;

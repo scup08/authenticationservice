@@ -12,12 +12,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 import com.xhld.authenticationservice.secruity.JwtAuthenticationEntryPoint;
 import com.xhld.authenticationservice.secruity.JwtAuthenticationProvider;
@@ -37,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserDetailsService userDetailsService;
     
-    @Autowired 
-    private JwtAuthenticationProvider jwtAuthenticationProvider;
+//    @Autowired 
+//    private JwtAuthenticationProvider jwtAuthenticationProvider;
     
     @Autowired private AuthenticationManager authenticationManager;
     
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         authenticationManagerBuilder
                 .userDetailsService(this.userDetailsService)
                 .passwordEncoder(passwordEncoder());
-        authenticationManagerBuilder.authenticationProvider(jwtAuthenticationProvider);
+//        authenticationManagerBuilder.authenticationProvider(jwtAuthenticationProvider);
     }
 
     @Bean
@@ -65,10 +65,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public JwtTokenAuthenticationProcessingFilter authenticationTokenFilterBean() throws Exception {
 //    	List<String> pathsToSkip = Arrays.asList("/pages/index.html", "/auth/register");
-    	List<String> pathsToSkip = Arrays.asList("/pages/index.html");
-        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, "/pages/**");
+    	List<String> pathsToSkip = Arrays.asList(
+    			"/pages/css/**",
+    			"/pages/fonts/**",
+    			"/pages/img/**",
+    			"/pages/js/**",
+    			"/pages/libs/**",
+    			"/pages/index.html",
+    			"/pages/templates/login.html",
+    			"/auth/**");
+    	
+        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, "/**");
 //        JwtTokenAuthenticationProcessingFilter filter =  new JwtTokenAuthenticationProcessingFilter(jwtAwareAuthenticationFailureHandler,matcher);
-        JwtTokenAuthenticationProcessingFilter filter =  new JwtTokenAuthenticationProcessingFilter(jwtAwareAuthenticationFailureHandler,AnyRequestMatcher.INSTANCE);
+        JwtTokenAuthenticationProcessingFilter filter =  new JwtTokenAuthenticationProcessingFilter(jwtAwareAuthenticationFailureHandler,matcher);
         
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;

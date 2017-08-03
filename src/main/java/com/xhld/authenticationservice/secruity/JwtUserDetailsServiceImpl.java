@@ -20,7 +20,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto user = loginService.findByUsername(username);
         
-        
+//        user.setPassword("123");
         
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));

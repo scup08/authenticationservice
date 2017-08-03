@@ -70,7 +70,7 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
         String username = jwtTokenUtil.getUsernameFromToken(authToken);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+                userDetails, "123", userDetails.getAuthorities());
         
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));    
         
