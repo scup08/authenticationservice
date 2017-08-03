@@ -12,15 +12,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.xhld.authenticationservice.secruity.JWTAuthenticationFilter;
 import com.xhld.authenticationservice.secruity.JwtAuthenticationEntryPoint;
-import com.xhld.authenticationservice.secruity.JwtAuthenticationProvider;
 import com.xhld.authenticationservice.secruity.JwtAwareAuthenticationFailureHandler;
 import com.xhld.authenticationservice.secruity.JwtTokenAuthenticationProcessingFilter;
 import com.xhld.authenticationservice.secruity.SkipPathRequestMatcher;
@@ -62,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
 //        return new JwtAuthenticationTokenFilter();
 //    }
-    @Bean
+//    @Bean
     public JwtTokenAuthenticationProcessingFilter authenticationTokenFilterBean() throws Exception {
 //    	List<String> pathsToSkip = Arrays.asList("/pages/index.html", "/auth/register");
     	List<String> pathsToSkip = Arrays.asList(
@@ -83,6 +82,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return filter;
     }
     
+    @Bean
+    public JWTAuthenticationFilter jWTAuthenticationFilterBean() throws Exception {
+    	JWTAuthenticationFilter filter = new JWTAuthenticationFilter();
+    	return filter;
+    }
     
 
     @Override
@@ -114,13 +118,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         "/**/*.woff"
                 ).permitAll()
                 // 对于获取token的rest api要允许匿名访问
-                .antMatchers("/auth/**").permitAll()
+                //.antMatchers("/auth/**").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
 
         // 添加JWT filter
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        .and()
+//                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jWTAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
         // 禁用缓存
         httpSecurity.headers().cacheControl();
     }
