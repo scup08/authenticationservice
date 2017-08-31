@@ -1,16 +1,15 @@
 server:
-  port: 9001
-   
+  port: 9112
 spring:
-  application:
-     name: authenticationservice
-     
-  datasource:
+  #application:
+  #   name: authenticationservice
+  #datasource:
     #url: jdbc:mysql://192.168.121.18:3306/testdb?characterEncoding=UTF-8
-    url: jdbc:mysql://192.168.26.128:3306/testdb?characterEncoding=UTF-8
-    username: root
-    password: root1234
-    driver-class-name: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://192.168.26.128:3306/testdb?characterEncoding=UTF-8
+    #url: ${spring.datasource.url}
+    #username: ${spring.datasource.username}
+    #password: ${spring.datasource.password}
+    #driver-class-name: ${spring.datasource.driver-class-name}
   jpa:
     database: MYSQL
     show-sql: true
@@ -33,7 +32,11 @@ spring:
     timeout: 60000
     #spring.redis.sentinel.master=
     #spring.redis.sentinel.nodes=
-   
+ # cloud:
+  #  config:
+   #   uri: http://localhost:9111
+    #  label: master
+    #  profile: wf
 eureka:
   client:
     serviceUrl:

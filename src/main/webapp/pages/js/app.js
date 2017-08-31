@@ -4,7 +4,7 @@
 angular.module('mdis', ['ui.router', 'myController', 'myService', 'module'])
 .value("httpConfig",{
 	'ip': 'localhost',
-	'port': '9001',
+	'port': '9112',
 	'serviceName': 'mdis',
 	'METHOD_CREATE': 'POST',
 	'METHOD_DELETE': 'DELETE',

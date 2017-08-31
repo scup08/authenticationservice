@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: authenticationservice
+  cloud:
+    config:
+      label: master
+      profile: wf
+      uri: http://localhost:9111/

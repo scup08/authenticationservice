@@ -6,8 +6,8 @@ import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xhld.authenticationservice.model.UserDto;
 import com.xhld.authenticationservice.service.IAuthService;
 
+@RefreshScope
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -23,7 +24,15 @@ public class AuthController {
 
     @Autowired
     private IAuthService authService;
-
+    
+    @Value("${aaa}")
+    String foo;
+    
+    @RequestMapping(value = "/hi")
+    public String hi(){
+        return foo;
+    }
+    
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public UserDto createAuthenticationToken(

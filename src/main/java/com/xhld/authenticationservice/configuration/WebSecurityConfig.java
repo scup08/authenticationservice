@@ -107,9 +107,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
-                        "/*.html",
+                        //"/*.html",
                         "/favicon.ico",
-                        "/**/*.html",
+                        //"/**/*.html",
+                        "/**/index.html",
+                        "/**/login.html",
                         "/**/*.css",
                         "/**/*.js",
                         "/**/*.png",
@@ -118,7 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         "/**/*.woff"
                 ).permitAll()
                 // 对于获取token的rest api要允许匿名访问
-                //.antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
 
