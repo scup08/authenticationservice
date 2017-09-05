@@ -25,13 +25,13 @@ public class AuthController {
     @Autowired
     private IAuthService authService;
     
-    @Value("${aaa}")
-    String foo;
-    
-    @RequestMapping(value = "/hi")
-    public String hi(){
-        return foo;
-    }
+//    @Value("${aaa}")
+//    String foo;
+//    
+//    @RequestMapping(value = "/hi")
+//    public String hi(){
+//        return foo;
+//    }
     
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     @RequestMapping(value = "/", method = RequestMethod.POST)
