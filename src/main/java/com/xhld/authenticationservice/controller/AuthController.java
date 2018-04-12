@@ -7,18 +7,18 @@ import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xhld.authenticationservice.model.UserDto;
+import com.lzh.common.model.entity.auth.UserDto;
 import com.xhld.authenticationservice.service.IAuthService;
 
 @RefreshScope
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
+	
     @Value("${jwt.header}")
     private String tokenHeader;
 
@@ -34,9 +34,9 @@ public class AuthController {
 //    }
     
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public UserDto createAuthenticationToken(
-    		@QueryParam("") UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) throws AuthenticationException{
+    		@QueryParam("") UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) {
     	
 //    	PublicUtil.setResponse(res);
     	UserDto user = new UserDto();
@@ -49,8 +49,7 @@ public class AuthController {
 
 //    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    public UserDto refreshAndGetAuthenticationToken(
-            HttpServletRequest request) throws AuthenticationException{
+    public UserDto refreshAndGetAuthenticationToken( HttpServletRequest request) {
     	UserDto userDto = new UserDto();
     	
         String token = request.getHeader(tokenHeader);
@@ -64,7 +63,7 @@ public class AuthController {
 
     @RequestMapping(value = "${jwt.route.authentication.register}", method = RequestMethod.POST)
 //    public UserDto register(@RequestBody UserDto addedUser) throws AuthenticationException{   //接受不到参数，会报异常
-    public UserDto register(@QueryParam("") UserDto addedUser) throws AuthenticationException{  //可以接受到
+    public UserDto register(@QueryParam("") UserDto addedUser) {  //可以接受到
 //    public UserDto register(String username ,String password) throws AuthenticationException{  //可以接受到
 //    public UserDto register( UserDto addedUser) throws AuthenticationException{   //可以接受到
 //    	UserDto addedUser = new UserDto();

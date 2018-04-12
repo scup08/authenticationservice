@@ -4,5 +4,5 @@ spring:
   cloud:
     config:
       label: master
-      profile: wf
+      profile: gs
       uri: http://localhost:9111/

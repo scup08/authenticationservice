@@ -10,55 +10,12 @@ spring:
     #username: ${spring.datasource.username}
     #password: ${spring.datasource.password}
     #driver-class-name: ${spring.datasource.driver-class-name}
-  jpa:
-    database: MYSQL
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
-  redis:
-    database: 1
-    host: 192.168.26.128
-    #spring.redis.password=123456
-    port: 6379
-    pool:
-      max-idle: 8
-      min-idle: 0
-      max-active: 8
-      max-wait: -1
-    timeout: 60000
-    #spring.redis.sentinel.master=
-    #spring.redis.sentinel.nodes=
- # cloud:
-  #  config:
-   #   uri: http://localhost:9111
-    #  label: master
-    #  profile: wf
+  
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
-# 以下是注解类型，暂时不用
-#mybatis:
-#  type-aliases-package: com.neo.entity
 
-mybatis:
-  config-location: classpath:/mybatis/mybatis-config.xml
-  mapper-locations: classpath*:/mybatis/mapper/*.xml
 
-# JWT
-jwt:
-  header: Authorization
-  secret: scup08
-  expiration: 604800
-  tokenHead: "Bearer "
-  route:
-    authentication:
-      path: auth/
-      refresh: refresh
-      register: register
 

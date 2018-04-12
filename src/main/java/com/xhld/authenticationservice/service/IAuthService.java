@@ -1,6 +1,6 @@
 package com.xhld.authenticationservice.service;
 
-import com.xhld.authenticationservice.model.UserDto;
+import com.lzh.common.model.entity.auth.UserDto;
 
 public interface IAuthService {
     UserDto register(UserDto userToAdd);
