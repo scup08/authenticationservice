@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ComponentScan("com.lzh.common.util")
+@ComponentScan("com.lzh.common.util,com.xhld.authenticationservice")
 public class AuthenticationServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(AuthenticationServiceApplication.class, args);

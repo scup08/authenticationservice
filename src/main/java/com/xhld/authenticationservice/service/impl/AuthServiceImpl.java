@@ -1,7 +1,6 @@
 package com.xhld.authenticationservice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.lzh.common.model.entity.auth.UserDto;
@@ -18,8 +17,6 @@ public class AuthServiceImpl implements IAuthService {
 	@Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
     
     
 
@@ -93,7 +90,7 @@ public class AuthServiceImpl implements IAuthService {
 
     @Override
     public String refresh(String oldToken) {
-        final String token = oldToken.substring(tokenHead.length());
+        final String token = oldToken.substring(jwtTokenUtil.getTokenHead().length());
         String username = jwtTokenUtil.getUsernameFromToken(token);
 //        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
 //        if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())){

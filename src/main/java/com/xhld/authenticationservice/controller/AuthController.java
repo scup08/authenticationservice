@@ -48,7 +48,7 @@ public class AuthController {
     }
 
 //    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+//    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
     public UserDto refreshAndGetAuthenticationToken( HttpServletRequest request) {
     	UserDto userDto = new UserDto();
     	
@@ -61,7 +61,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "${jwt.route.authentication.register}", method = RequestMethod.POST)
+//    @RequestMapping(value = "${jwt.route.authentication.register}", method = RequestMethod.POST)
 //    public UserDto register(@RequestBody UserDto addedUser) throws AuthenticationException{   //接受不到参数，会报异常
     public UserDto register(@QueryParam("") UserDto addedUser) {  //可以接受到
 //    public UserDto register(String username ,String password) throws AuthenticationException{  //可以接受到

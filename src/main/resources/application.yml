@@ -3,13 +3,13 @@ server:
 spring:
   #application:
   #   name: authenticationservice
-  #datasource:
-    #url: jdbc:mysql://192.168.121.18:3306/testdb?characterEncoding=UTF-8
-    #url: jdbc:mysql://192.168.26.128:3306/testdb?characterEncoding=UTF-8
-    #url: ${spring.datasource.url}
-    #username: ${spring.datasource.username}
-    #password: ${spring.datasource.password}
-    #driver-class-name: ${spring.datasource.driver-class-name}
+  datasource:
+    #url: jdbc:mysql://47.93.193.177:3306/test?useSSL=false
+    url: jdbc:mysql://192.168.26.128:3306/zuul_db?useSSL=false
+    #url: jdbc:mysql://192.168.121.5:3306/zuul_db?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
   
 eureka:
   client:
