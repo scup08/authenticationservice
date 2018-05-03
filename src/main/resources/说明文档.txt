@@ -1,8 +1,0 @@
-http://start.spring.io/
-
-#redis启动命令
-#cd /usr/local/bin/
-# ./redis-server /etc/redis.conf
-
-
-http://localhost:9001/pages/index.html#/login

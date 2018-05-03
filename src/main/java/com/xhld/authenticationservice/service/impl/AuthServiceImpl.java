@@ -91,7 +91,7 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public String refresh(String oldToken) {
         final String token = oldToken.substring(jwtTokenUtil.getTokenHead().length());
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+//        String username = jwtTokenUtil.getUsernameFromToken(token);
 //        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
 //        if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())){
             return jwtTokenUtil.refreshToken(token);

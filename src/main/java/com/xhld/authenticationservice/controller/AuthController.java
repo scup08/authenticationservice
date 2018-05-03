@@ -35,8 +35,7 @@ public class AuthController {
     
 //    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public UserDto createAuthenticationToken(
-    		@QueryParam("") UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) {
+    public UserDto createAuthenticationToken(@QueryParam("") UserDto userDto,HttpServletResponse res, HttpServletRequest reqs) {
     	
 //    	PublicUtil.setResponse(res);
     	UserDto user = new UserDto();
