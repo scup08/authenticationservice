@@ -34,21 +34,44 @@
 		    <artifactId>jsr311-api</artifactId>
 		    <version>1.1.1</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+		<dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>${mybatis.version}</version>
+		</dependency>
 
 	</dependencies>
   <build>
     <finalName>authenticationservice</finalName>
     <plugins>
+    		<!-- 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+             -->
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			 <!--  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>${common.jar.path}</classpathPrefix>
+							<mainClass>com.xhld.authenticationservice.AuthenticationServiceApplication</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
         </plugins>
