@@ -1,58 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <groupId>com.lzh</groupId>
-  <artifactId>authenticationservice</artifactId>
-  <packaging>jar</packaging>
-  
-  <version>0.0.1-SNAPSHOT</version>
-  <name>authenticationservice Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
 		<groupId>com.lzh</groupId>
-		<artifactId>myparent</artifactId>
+		<artifactId>myCommon</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<dependencies>
-		<!-- 加载公共包 -->
-		<dependency>
-			<groupId>com.lzh</groupId>
-			<artifactId>common</artifactId>
-			<version>${common.version}</version>
-		</dependency>
-	
-		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-config-client</artifactId>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/javax.ws.rs/jsr311-api -->
-		<dependency>
-		    <groupId>javax.ws.rs</groupId>
-		    <artifactId>jsr311-api</artifactId>
-		    <version>1.1.1</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-		<dependency>
-		    <groupId>org.mybatis.spring.boot</groupId>
-		    <artifactId>mybatis-spring-boot-starter</artifactId>
-		    <version>${mybatis.version}</version>
-		</dependency>
+	<artifactId>authservice</artifactId>
+	<name>authservice</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webmvc-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+		</dependency>
 	</dependencies>
-  <build>
-    <finalName>authenticationservice</finalName>
-    <plugins>
-    		<!-- 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-             -->
-            <plugin>
+	<build>
+		<finalName>authservice</finalName>
+		<plugins>
+			<!-- fat jar -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -60,20 +55,6 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			 <!--  -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>${common.jar.path}</classpathPrefix>
-							<mainClass>com.xhld.authenticationservice.AuthenticationServiceApplication</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-        </plugins>
-  </build>
+		</plugins>
+	</build>
 </project>
