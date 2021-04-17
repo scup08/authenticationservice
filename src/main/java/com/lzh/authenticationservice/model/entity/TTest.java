@@ -1,4 +1,4 @@
-package com.xhld.authenticationservice.model.entity;
+package com.lzh.authenticationservice.model.entity;
 
 public class TTest {
     private Long id;
