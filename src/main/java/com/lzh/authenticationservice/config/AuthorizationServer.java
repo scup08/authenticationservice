@@ -3,6 +3,8 @@
  */
 package com.lzh.authenticationservice.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +19,9 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * @author 51937
@@ -26,46 +30,63 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 @Configuration
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
-    @Autowired
-    TokenStore tokenStore;
-    @Autowired
-    ClientDetailsService clientDetailsService;
+	
+	@Autowired
+	TokenStore tokenStore;
+	@Autowired
+	ClientDetailsService clientDetailsService;
+	
+	
+	@Autowired
+	JwtAccessTokenConverter jwtAccessTokenConverter;
+	@Autowired
+	CustomAdditionalInformation customAdditionalInformation;
 
-    @Bean
-    AuthorizationServerTokenServices tokenServices() {
-        DefaultTokenServices services = new DefaultTokenServices();
-        services.setClientDetailsService(clientDetailsService);
-        services.setSupportRefreshToken(true);
-        services.setTokenStore(tokenStore);
-        services.setAccessTokenValiditySeconds(60 * 60 * 2);
-        services.setRefreshTokenValiditySeconds(60 * 60 * 24 * 3);
-        return services;
-    }
+//	@Bean
+//	AuthorizationServerTokenServices tokenServices() {
+//		DefaultTokenServices services = new DefaultTokenServices();
+//		services.setClientDetailsService(clientDetailsService);
+//		services.setSupportRefreshToken(true);
+//		services.setTokenStore(tokenStore);
+//		services.setAccessTokenValiditySeconds(60 * 60 * 2);
+//		services.setRefreshTokenValiditySeconds(60 * 60 * 24 * 3);
+//		return services;
+//	}
+	
+	@Bean
+	AuthorizationServerTokenServices tokenServices() {
+	    DefaultTokenServices services = new DefaultTokenServices();
+	    services.setClientDetailsService(clientDetailsService);
+	    services.setSupportRefreshToken(true);
+	    services.setTokenStore(tokenStore);
+	    TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+	    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter, customAdditionalInformation));
+	    services.setTokenEnhancer(tokenEnhancerChain);
+	    return services;
+	}
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
-    }
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security.checkTokenAccess("permitAll()").allowFormAuthenticationForClients();
+	}
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("javaboy")
-                .secret(new BCryptPasswordEncoder().encode("123"))
-                .resourceIds("res1")
-                .authorizedGrantTypes("authorization_code","refresh_token")
-                .scopes("all")
-                .redirectUris("http://localhost:8082/index.html");
-    }
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients.inMemory()
+			.withClient("javaboy")
+				.secret(new BCryptPasswordEncoder().encode("123"))
+				.resourceIds("res1")
+				.authorizedGrantTypes("authorization_code", "refresh_token").scopes("all")
+				.redirectUris("http://127.0.0.1:8080/");
+	}
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authorizationCodeServices(authorizationCodeServices())
-                .tokenServices(tokenServices());
-    }
-    @Bean
-    AuthorizationCodeServices authorizationCodeServices() {
-        return new InMemoryAuthorizationCodeServices();
-    }
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints.authorizationCodeServices(authorizationCodeServices()).tokenServices(tokenServices());
+	}
+
+	@Bean
+	AuthorizationCodeServices authorizationCodeServices() {
+		return new InMemoryAuthorizationCodeServices();
+	}
 }
