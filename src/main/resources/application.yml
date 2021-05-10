@@ -5,20 +5,36 @@
 #  client:
 #    serviceUrl:
 #      defaultZone: http://192.168.26.128:8761/eureka/
+server:
+  port: 9000 
 spring:
   application:
     name: authenticationservice
-server:
-  port: 9000 
-#  cloud:
-#    config:
-#      profile: gs
-#      discovery:
-#        enabled: true
-#        service-id: configservice
+  datasource:
+    url: jdbc:mysql://192.168.121.11:3306/authdb?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: mysql123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5 #初始化时建立物理连接的个数
+      min-idle: 5 #最小连接池数量
+      max-active: 10 #最大连接池数量
+      max-wait: 60000 #获取连接时最大等待时间
+      stat-view-servlet:
+        login-username: admin #配置监控页面访问登录名称
+        login-password: admin #配置监控页面访问密码
+      filter:
+        stat:
+          log-slow-sql: true #是否开启慢sql查询监控
+          slow-sql-millis: 100 #慢SQL执行时间
 mybatis:
-  type-aliases-package: com.lzh.medicalface.model.entity
+  type-aliases-package: com.lzh.authenticationservice.model
   configuration:
     map-underscore-to-camel-case: true
     default-statement-timeout: 30
     default-fetch-size: 100
+logging:
+  level:
+    com.fivecm.pybase.service: debug
+    com.lzh.authenticationservice.mapper: debug

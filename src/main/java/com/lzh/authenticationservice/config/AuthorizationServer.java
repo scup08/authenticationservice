@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -33,25 +34,17 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	
 	@Autowired
 	TokenStore tokenStore;
+	
 	@Autowired
 	ClientDetailsService clientDetailsService;
 	
+	@Autowired
+	AuthenticationManager authenticationManager;
 	
 	@Autowired
 	JwtAccessTokenConverter jwtAccessTokenConverter;
 	@Autowired
 	CustomAdditionalInformation customAdditionalInformation;
-
-//	@Bean
-//	AuthorizationServerTokenServices tokenServices() {
-//		DefaultTokenServices services = new DefaultTokenServices();
-//		services.setClientDetailsService(clientDetailsService);
-//		services.setSupportRefreshToken(true);
-//		services.setTokenStore(tokenStore);
-//		services.setAccessTokenValiditySeconds(60 * 60 * 2);
-//		services.setRefreshTokenValiditySeconds(60 * 60 * 24 * 3);
-//		return services;
-//	}
 	
 	@Bean
 	AuthorizationServerTokenServices tokenServices() {
@@ -76,13 +69,13 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 			.withClient("javaboy")
 				.secret(new BCryptPasswordEncoder().encode("123"))
 				.resourceIds("res1")
-				.authorizedGrantTypes("authorization_code", "refresh_token").scopes("all")
+				.authorizedGrantTypes("authorization_code","password", "refresh_token").scopes("all")
 				.redirectUris("http://127.0.0.1:8080/");
 	}
-
+	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authorizationCodeServices(authorizationCodeServices()).tokenServices(tokenServices());
+		endpoints.authorizationCodeServices(authorizationCodeServices()).authenticationManager(authenticationManager).tokenServices(tokenServices());
 	}
 
 	@Bean
